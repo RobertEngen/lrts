@@ -14,5 +14,11 @@ setup(
         'console_scripts': [
             'lrts=lrts.cli:main'
         ]
-    }
+    },
+    author="Robert Engen",
+    author_email="rnengen@gmail.com",
+    description="A python distributed task computation library.",
+    long_description=open('README.md').read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/RobertEngen/lrts"
 )
