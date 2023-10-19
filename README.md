@@ -1,8 +1,8 @@
 # lrts (Long Running Task Service)
 
-Distributed computation and task synchronization got you down? Look no further! `lrts` is designed to make distributing long running tasks and reporting on their progress over a networked cluster easier than ever!
+Distributed computation and task synchronization got you down? Look no further! `lrts` is designed to make distributing long-running tasks and reporting on their progress over a networked cluster easier than ever!
 
-`lrts` is a Python library meticulously crafted to streamline the execution of long running asynchronous network tasks. This tool fills the gap left by other distributed computing Python libraries that falter under the weight of extended tasks.
+`lrts` is a Python library meticulously crafted to streamline the execution of long-running asynchronous network tasks. This tool fills the gap left by other distributed computing Python libraries that falter under the weight of extended tasks.
 
 ![lrts progress tracking showcase](lrts.gif)
 
@@ -36,7 +36,7 @@ The environment which `lrts` was designed for would often have scaling requireme
 2. **Precision Progress Reporting:** Detailed and real-time progress feedback is crucial for long tasks, and `lrts` offers this without taxing the system.
 
 ## Usage
-1. Install and run Scheduler/Worker/Progress Server
+1. Install and run Scheduler/Worker/Progress Server:
 ```commandline
 # Install With Advanced Terminal Capabilities (Recommended)
 pip install lrts[detailed_progress]
@@ -87,7 +87,7 @@ Worker Command Line Options:
     You should experiment here to find which brings the best performance for you.
 ```
 
-2. Define a service. Note: Generally a service should be some piece of independent parallel code that justifies the network overhead of sending it to another machine, the example we use here for simplicity is not such a case.  Simply inherit from the `Service` class and encapsulate your desired code within the `run` method. From there, `lrts` will later take over, ensuring your code is executed on the optimal worker within the cluster.
+2. Define a service. Note: Generally a service should be some piece of independent parallel code that justifies the network overhead of sending it to another machine, the example we use here for simplicity is not such a case.  Simply inherit from the `Service` class and encapsulate your desired code within the `run` method. From there, `lrts` will later take over, ensuring your code is executed on the optimal worker within the cluster:
 ```python
 from __future__ import annotations
 from typing import Union, Any
@@ -110,7 +110,7 @@ class MultService(Service):
         return service.a * service.b
 ```
 
-3. Run your code and synchronously wait for task completion
+3. Run your code and synchronously wait for task completion:
 ```python
 from lrts import ApplicationInformation, ClientApplication, ServiceResult
 from lrts.examples.services.mult_service import MultService
@@ -148,7 +148,7 @@ if __name__ == '__main__':
     application.stop_application()
 ```
 
-4. Run multiple services on the cluster simultaneously and wait for their results synchronously
+4. Run multiple services on the cluster simultaneously and wait for their results synchronously:
 ```python
 from typing import List
 
@@ -198,7 +198,7 @@ if __name__ == '__main__':
     # and free up memory for other applications
     application.stop_application()
 ```
-5. Run multiple services on the cluster simultaneously and perform some action as they are completed in no particular order
+5. Run multiple services on the cluster simultaneously and perform some action as they are completed in no particular order:
 ```python
 from typing import List
 
@@ -250,14 +250,14 @@ if __name__ == '__main__':
 ```
 
 ## Future Improvements
-1. Official documentation and usage webpage
+1. Official documentation and usage webpage.
 2. Adding the ability to provide database credentials that allow serialized task results to be stored off of the scheduler/application/worker stack that are fetched only when the application needs them reducing memory overhead on application/scheduler/workers.
-3. The library is extremely resilient to worker/scheduler disconnects & crashes but if the application that submitted the work disconnects or crashes workers will discard their results and the scheduler will remove all queued jobs and cancel running jobs. A major improvement would be to allow workers to finish their scheduled tasks serialize and save the results and have the scheduler continue running scheduled work while giving the application a very generous time frame to respond.
+3. The library is extremely resilient to worker/scheduler disconnects & crashes, but if the application that submitted the work disconnects or crashes workers will discard their results and the scheduler will remove all queued jobs and cancel running jobs. A major improvement would be to allow workers to finish their scheduled tasks serialize and save the results and have the scheduler continue running scheduled work while giving the application a very generous time frame to respond.
 
 ## Is this a Dask Replacement?
-It depends on your use case. If you are currently using Dask to spawn long running processes on worker machines that work independently of eachother then yes, `lrts` can replace Dask and provide you with additional tools centered around independent paralell processing that dask does not have available.
+It depends on your use case. If you are currently using Dask to spawn long-running processes on worker machines that work independently of each-other then yes, `lrts` can replace Dask and provide you with additional tools centered around independent parallel processing that dask does not have available.
 
-If your tasks strongly depend on each other, or you are looking for mature integrations with various libraries such as numpy then Dask or a combination of `lrts` and Dask may be the correct choice.
+If your tasks strongly depend on each other, or you are looking for mature integrations with various libraries such as Numpy then Dask or a combination of `lrts` and Dask may be the correct choice.
 
 ## Final Thoughts
 

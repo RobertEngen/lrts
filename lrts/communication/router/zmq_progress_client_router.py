@@ -28,11 +28,6 @@ class ZMQProgressClientRouter(ProgressClientRouter):
         self._socket.RCVTIMEO = self.client_information.communication_time_out
         self._poller.register(self._socket, zmq.POLLIN)
 
-        # ToDo: Implement custom logger interface
-        print(f'Started client. '
-              f'Connected to server at: '
-              f'{self.client_information.server_address}:{self.client_information.server_port}')
-
     def stop_router(self) -> None:
         if self._socket:
             self._poller.unregister(self._socket)
@@ -43,9 +38,6 @@ class ZMQProgressClientRouter(ProgressClientRouter):
         if self._context:
             self._context.term()
             self._context = None
-
-        print(f'Disconnected From Server At: '
-              f'{self.client_information.server_address}:{self.client_information.server_port}')
 
     def send_message_to_server(self, message: IPCMessage) -> None:
         data_encoded: bytes = pickle.dumps(message)

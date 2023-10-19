@@ -336,8 +336,6 @@ class ZMQScheduler(Scheduler):
         self._worker_active_tasks[worker_id].append(request_data)
 
     def handle_application_start_service(self, request_data: StartServiceIPCMessage) -> None:
-        print("APPLICATION REQUESTED SERVICE TO START")
-
         found_free_worker: bool = False
 
         for worker_id, worker in self._workers.items():
@@ -377,8 +375,6 @@ class ZMQScheduler(Scheduler):
         self._queued_tasks = unmatched_tasks
 
     def handle_worker_completed_task(self, result_message: WorkerResultIPCMessage) -> None:
-        print("SCH RECEIVED WORKER RESULT")
-
         worker_id: str = result_message.source_node_id
         application_id: str = result_message.payload.application_id
         service_id: str = result_message.payload.service_id
